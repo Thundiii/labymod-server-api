@@ -1,0 +1,88 @@
+plugins {
+    id("java-library")
+    id("com.github.johnrengelman.shadow") version("6.1.0")
+}
+
+group = "net.labymod"
+version = properties["VERSION"] as String
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+
+    maven {
+        name = "velocity-repository"
+        url = "https://repo.velocitypowered.com/snapshots/"
+    }
+
+    maven {
+        name = "bungeecord-repository"
+        url = "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+    maven {
+        name = "sponge-repository"
+        url = "https://repo.spongepowered.org/maven"
+    }
+
+    maven {
+        name = "bungeecord-repository"
+        url = "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+    maven {
+        name = "spigot-repository"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+
+    maven {
+        name = "dmulloy2"
+        url = "https://repo.dmulloy2.net/nexus/repository/public/"
+    }
+}
+
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
+
+dependencies {
+    compile(project(":labymod-api")) {
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "io.netty"
+    }
+    compile(project(":labymod-common")) {
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "io.netty"
+    }
+    compile(project(":proxy:bungeecord")) {
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "io.netty"
+    }
+    compile(project(":proxy:velocity")) {
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "io.netty"
+    }
+    compile(project(":server:bukkit")) {
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "io.netty"
+    }
+    compile(project(":server:sponge")) {
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "io.netty"
+    }
+}
+
+shadowJar {
+    setClassifier("")
+}
